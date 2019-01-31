@@ -1,0 +1,38 @@
+Yocto build instructions
+========================
+
+Source of this content: https://www.yoctoproject.org/docs/2.0/yocto-project-qs/yocto-project-qs.html
+
+Install required packages:
+	$ sudo apt install gawk wget git-core diffstat unzip texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev xterm texinfo git vim ssh
+If fail to find some package, try:
+	$ sudo add-apt-repository main
+	$ sudo add-apt-repository universe
+	$ sudo apt update
+
+Get poky project and checkout to Rocko branch:
+	$ git clone git://git.yoctoproject.org/poky
+	$ git checkout rocko
+
+Configure for build:
+	$ source poky/oe-init-build-en
+This will create and move to a build directory.
+Modify conf/local.conf for build related things like MACHINE, Download path, number of parallel jobs for build.
+	$ echo 'MACHINE = "intel-corei7-64"' >> conf/local.conf
+Modify conf/bblayers.conf to add/remove layers. Only those path will be searched whose path mentioned in this file.
+This command can be used to add layers:
+	$ bitbake-layers add-layer "$HOME/source/poky/meta-myLayer"
+
+Build image:
+	$ bitbake core-image-minimal
+Build specific component:
+	$ bitbake recipe-name
+Clean a component:
+	$ bitbake -c cleansstate recipe-name
+	$ bitbake -c cleanall recipe-name
+To fetch/compile/install a component:
+	$ bitbake -c fetch/compile/install recipe-name
+
+How to create SDK:
+Not sure need to search for this. This can try:
+	$ MACHINE=qemuarm bitbake pokyimage-sato-sdk meta-toolchain package-index

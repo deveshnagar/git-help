@@ -1,0 +1,110 @@
+1)Create repo:
+	git init --bare --shared Test_Repo.git
+
+
+2)Clone repo:
+
+	git clone /Repo/Test_Repo.git
+
+3)TO add files: (files will be added to stage)
+
+	Git add .
+
+4)TO Commit files: (file will commit from stage to repo)
+
+	git commit -m ""
+
+5)git push setup
+	git push --set-upstream origin master
+
+6)to push changes to repo
+	git push
+
+7)to pull changes from repo
+	git pull
+
+8)to unstage
+	git reset HEAD <file>..." to unstage
+
+9) config mail and username
+	git config --global user.name "devesh"
+	git config --global user.email devesh66@gmail.com
+
+10) To change "git://" to "https://" :
+	git config --global url."https://".insteadOf git://
+
+
+11) To add new remote and push to it :
+	git remote add server git@10.93.37.74:cp100-src/connectivity.git
+	git fetch server
+	git log
+	git push server HEAD
+
+12) To push first time (when there is no branch created at origin)
+	git push --set-upstream origin master
+
+13) Create the branch on your local machine and switch in this branch :
+
+	git checkout -b [name_of_your_new_branch]
+
+14) Push the branch on github :
+
+	git push origin [name_of_your_new_branch]
+
+15) To create a snapshot of your commits using repo :
+	repo manifest -o Release-1.0.1.1 -r
+	Copy generated file Release-1.0.1.1 to .repo/manifests/ and push.
+	repo sync
+16) To clone specific snapshot of commits using repo :
+	repo init -u git@192.168.0.25:some-path/manifest -m TAGNAME-1.0.0.0.xml
+
+
+17) To force push (instead of revert) to a particular branch
+	First you checkout to previous commit id
+	git checkout "commit id of previous commit"
+	Do you changes, add, commitand push
+	git push origin HEAD:branch-name-where-to push --force
+
+18) To create a patch using git
+	Checkout to master branch and merge that branch
+	Checkout to that branch
+	Do you changes, and commit them. Now your branch is one commit ahead of master
+	Create patch :
+	git format-patch master
+	This patch you cna use in yocto recipe as filesrc.
+	This patch will include any prebuilt bins/libs also if added/modified.
+
+19) How to merge a particular commit from different branch to your branch
+	Switch to that particular branch and note down that commit id of that particular commit.
+	Switch to you branch and to cherry-pick
+	git cherry-pick 1e7d2189f9586205122ce74b7624c78f95ecd494
+
+20) How to remove a commit(which is pushed to server) from git repository
+	Checkout to that branch.
+	Do git rebase from the point after which you want to remove commits.
+	Remove the commit manualy from the file opened by rebase command. Save and exit.
+	Push forcefully to server.
+	git checkout that-branch
+	git rebase -i a371f38
+	git push origin HEAD -f
+
+21) How to rename the message of a commit (which is pushed to server) from git repository
+	Checkout to that branch.
+	Do git rebase from the commit for which you want to edit message.
+	For this you will have to do rebase with interactive option.
+	git rebase -i e713ab353708fd1067d1c5e603ea5aeff2739acf  //Here write 'r' instead of "pick" word for particular commit.
+	git status
+	git push origin branch-name -f  //Force push is required
+
+22) Set proxy for GIT
+	Install corkscrew application using 
+	Command: sudo apt-get install corkscrew
+	Create a text file with following content: 
+		#!/bin/bash
+		exec corkscrew someproxy.company.com 8080 $*
+
+	Add an executable flag to it:  
+	Command: chmod +x filename
+	Export an environment variable usign bashrc (add following text to ~/.bashrc file):
+	Command: export GIT_PROXY_COMMAND=%PATH_TO_PREVIOUSLY_CREATED_FILE%
+	(ex. export GIT_PROXY_COMMAND=/home/yoctoadm/corkscrewScript.sh)

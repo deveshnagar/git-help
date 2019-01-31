@@ -1,0 +1,138 @@
+1)Create repo:
+	git init --bare --shared Test_Repo.git
+
+
+2)Clone repo:
+
+	git clone /Repo/Test_Repo.git
+
+3)TO add files: (files will be added to stage)
+
+	Git add .
+
+4)TO Commit files: (file will commit from stage to repo)
+
+	git commit -m ""
+
+5)git push setup
+	git push --set-upstream origin master
+
+6)to push changes to repo
+	git push
+
+7)to pull changes from repo
+	git pull
+
+8)to unstage
+	git reset HEAD <file>..." to unstage
+
+9) config mail and username
+	git config --global user.name "Devesh Nagar"
+	git config --global user.email devesh66@gmail.com
+
+10) To change "git://" to "https://" :
+	git config --global url."https://".insteadOf git://
+
+
+11) To add new remote and push to it :
+	git remote add server git@10.93.37.74:cp100-src/connectivity.git
+	git fetch server
+	git log
+	git push server HEAD
+
+12) To push first time (when there is no branch created at origin)
+	git push --set-upstream origin master
+
+13) Create the branch on your local machine and switch in this branch :
+
+	git checkout -b [name_of_your_new_branch]
+
+14) Push the branch on github :
+
+	git push origin [name_of_your_new_branch]
+
+15) To create a snapshot of your commits using repo :
+	repo manifest -o Release-1.0.1.1 -r
+	Copy generated file Release-1.0.1.1 to .repo/manifests/ and push.
+	repo sync
+16) To clone specific snapshot of commits using repo :
+	repo init -u git@192.168.0.25:some-path/manifest -m TAGNAME-1.0.0.0.xml
+
+17) To force push (instead of revert) to a particular branch
+	First you checkout to previous commit id
+	git checkout "commit id of previous commit"
+	Do you changes, add, commitand push
+	git push origin HEAD:branch-name-where-to push --force
+
+18) Rebase ??
+ 2035  git branch -v
+ 2036  git rebase local-git/xyz
+ 2037  git diff
+ 2038  git rebase --abort
+ 2039  git status 
+ 2040  git rebase local-git/xyz 
+ 2041  git diff
+ 2042  vim recipes-kernel/linux/linux-xyz_3.18.bbappend 
+ 2043  git add recipes-kernel/linux/linux-xyz_3.18.bbappend 
+ 2044  git rebase --continue 
+ 2045  git commit --amend 
+ 2046  git push local-git 
+ 2047  git push local-git -f
+
+19) Fast Forward
+	Checkout to branch
+	$ git pull origin
+
+20) repo sync
+ 2110  repo sync
+ 2111  cd packages/package-hardkey/
+ 2112  git status
+ 2113  ls
+ 2114  git log
+ 2115  git branch -v
+ 2116  cd ../../
+ 2117  ls -l .repo/manifest.xml
+ 2118  cd packages/package-coremedia/
+ 2119  git status
+ 2120  cd -
+ 2121  repo init -u git@192.168.0.25:path/path-repo
+ 2122  repo branches
+ 2123  repo start branch-name --all      //This you do before repo sync, so that all gits will checkout to branch-name
+ 2124  repo sync
+ 2125  cd tcfg/poky/
+ 2126  git rebase --abort
+ 2127  git branch -v
+ 2128  git reset --hard origin/branch-name
+ 2129  cd -
+ 2130  repo sync
+ 2131  repo forall -p -c git log --oneline --decorate -1
+ 2132  ls
+
+
+21) removing a commit from repository (which is pushed to server) :
+
+ 2094  git status
+ 2095  git log
+ 2096  git fetch origin
+ 2097  git branch -v
+ 2098  git checkout -b branch-name origin/xyz
+ 2099  git log --oneline -5
+ 2100  git log --oneline -5 branch-name
+ 2101  git cherry-pick 2bbef16
+ 2102  git push origin HEAD
+ 2103  git checkout brach-name
+ 2104  git log --oneline -10
+ 2105  git log --oneline --decorate -10
+ 2106  git rebase -i a371f38   ////rebase from the point, after which you want remove commits
+ 2107  git log --oneline --decorate -10
+ 2108  git push origin HEAD -f
+
+22) To edit message :
+ It is interactive rebase, you have to write options like 'r'/'pick' etc on editor.
+ 2027  git rebase -i e713ab353708fd1067d1c5e603ea5aeff2739acf  //Here write 'r' instead of "pick" word for particular commit.
+ 2028  git status
+ 2029  git push origin branch-name
+ 2030  git push origin branch-name -f
+
+23)
+git log --oneline --decorate --graph  HEAD  origin/branch-name
